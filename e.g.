@@ -7,15 +7,15 @@ case ${1} in
 add)
   shift
   message=""
-  case "${1}-HELP" in
-  -HELP|-h-HELP)
+  case "${1}-OPTION" in
+  -OPTION|-h-OPTION)
      echo '"Add a new example command."' >&2
      echo 'Usage: e.g. add [-m message] command_with_args' >&2
      echo 'Where: ' >&2
      echo '  command_with_args: Needs to be quoted if pipe (|) is part of the command that needs to be captured.' >&2
      exit 0
      ;;
-  -m)
+  -m-OPTION)
     shift
     message="${1}"
     shift
@@ -27,8 +27,8 @@ add)
 
 show)
   shift
-  case "${1}-HELP" in
-  -HELP|-h-HELP)
+  case "${1}-OPTION" in
+  -OPTION|-h-OPTION)
     echo '"Show examples of the command specified by the argument."' >&2
     echo 'Usage: e.g. show one_word_command' >&2
     echo 'Where: ' >&2
@@ -36,7 +36,7 @@ show)
     exit 0
     ;;
   esac
-  shift; command=${1}
+  command=${1}
   cat ~/.e.g./${command}
   ;;
 
