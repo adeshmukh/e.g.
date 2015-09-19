@@ -48,6 +48,7 @@ show)
   ;;
 
 list)
+  shift
   case ${1} in
   -h)
     echo '"List all commands that can be used with the show subcommand"' >&2
