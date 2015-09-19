@@ -1,8 +1,14 @@
 #!/bin/bash
+subcommand=${1}
+E_G_DIR=${E_G_DIR:-~/.e.g.}
 
-mkdir ~/.e.g. 2>/dev/null
+mkdir ${E_G_DIR} 2>/dev/null
 
-case ${1} in
+e.g._command2filename() {
+  echo ${command} | tr -cd '[[:alnum:]]_-'
+}
+
+case ${subcommand} in
 
 add)
   shift
@@ -22,7 +28,7 @@ add)
     ;;
   esac
   command=$(echo ${1} | cut -d ' ' -f1)
-  echo "${@} # ${message}" | tee -a ~/.e.g./"${command}"
+  echo "${@} # ${message}" | tee -a ${E_G_DIR}/"$(e.g._command2filename ${command})"
   ;;
 
 show)
@@ -37,7 +43,8 @@ show)
     ;;
   esac
   command=${1}
-  cat ~/.e.g./${command}
+  filename=$(e.g._command2filename ${command})
+  cat ${E_G_DIR}/${filename}
   ;;
 
 list)
@@ -48,7 +55,7 @@ list)
     exit 0
     ;;
   esac
-  ls -1 ~/.e.g./
+  ls -1 ${E_G_DIR}
   ;;
 *)
   echo '"Tool to save commands for future reference."' >&2
